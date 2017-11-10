@@ -98,8 +98,15 @@ bool DoomOPL::LoadInstrumentTable(void)
 {
 	byte *lump;
 	unsigned int size;
-
-	FILE *file = fopen("C:\\OPLSynth\\GENMIDI.OP2", "rb");
+	const char* dir = getenv("DMXPATH");
+	if (!dir)
+	{
+		dir = "C:\\OPLSynth";
+	}
+	
+	char path[_MAX_PATH + 1];
+	snprintf(path, sizeof(path), "%s\\GENMIDI.OP2", dir);
+	FILE *file = fopen(path, "rb");
 	if (!file)
 	{
 		return false;
